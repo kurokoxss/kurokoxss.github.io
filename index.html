@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CloverPit Horror — Singleplayer (Telegram WebApp ready)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <!-- TOP NAV: вкладки -->
+    <nav class="top-nav">
+      <button class="tab-btn active" data-tab="game">Игра</button>
+      <button class="tab-btn" data-tab="shop">Магазин</button>
+    </nav>
+
+    <header class="hud">
+      <div class="hud-col">
+        <div class="hud-item"><span>Раунд:</span><b id="round">1</b></div>
+        <div class="hud-item"><span>Спинов осталось:</span><b id="spinsLeft">5</b></div>
+      </div>
+      <div class="hud-col">
+        <div class="hud-item"><span>Баланс:</span><b id="balance">100</b></div>
+        <div class="hud-item hud-debt"><span>Долг:</span><b id="debt">50</b></div>
+      </div>
+      <div class="hud-col">
+        <div class="hud-item"><span>Лучший раунд:</span><b id="bestRound">1</b></div>
+        <div class="hud-item"><span>Бафы:</span><b id="buffsSummary">—</b></div>
+      </div>
+    </header>
+
+    <div class="promo-row">
+      <div class="promo-item">Текущий мировой баф: <b id="worldBuff">—</b></div>
+      <div class="promo-item">Акция в магазине: <b id="featuredBuff">—</b></div>
+    </div>
+
+    <section id="tab-game" class="tab-panel">
+      <section class="machine" id="machine">
+        <div class="reels" id="reels">
+          <div class="reel" data-idx="0"><div class="cell">🍀</div></div>
+          <div class="reel" data-idx="1"><div class="cell">💎</div></div>
+          <div class="reel" data-idx="2"><div class="cell">🕯️</div></div>
+        </div>
+
+        <div class="controls">
+          <button id="spinBtn" class="btn primary pulse">Вращать (−<span id="spinCost">5</span>)</button>
+          <button id="takeOfferBtn" class="btn ghost" title="Риск: заплати — шанс получить баф или штраф">Звонок судьбы</button>
+          <button id="payDebtBtn" class="btn success" disabled>Погасить долг</button>
+        </div>
+
+        <div id="message" class="message info">Добро пожаловать. Сделай ставку и крути.</div>
+
+        <div class="overlay hidden" id="overlay">
+          <div class="overlay-inner">
+            <div id="overlay-msg">—</div>
+            <div class="overlay-actions">
+              <button id="overlay-ok" class="btn primary">Продолжить</button>
+              <button id="overlay-restart" class="btn danger ghost">Перезапустить</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="explain">
+          <strong>Звонок судьбы</strong> — рискованная опция: вы платите небольшую плату (зависит от долга) и получаете либо прибыль/баф, либо штраф/увеличение долга.
+        </div>
+
+        <!-- optional audio placeholders (оставил, но не обязателен) -->
+        <audio id="sfx-win" preload="auto"><source src="sfx/win.mp3" type="audio/mpeg"></audio>
+        <audio id="sfx-lose" preload="auto"><source src="sfx/lose.mp3" type="audio/mpeg"></audio>
+        <audio id="sfx-spin" preload="auto"><source src="sfx/spin.mp3" type="audio/mpeg"></audio>
+
+      </section>
+    </section>
+
+    <section id="tab-shop" class="tab-panel hidden">
+      <section class="shop">
+        <h2>Магазин</h2>
+        <div class="shop-grid" id="shopItems"></div>
+        <div class="shop-note">В магазине можно купить бафы напрямую — они действуют сразу. Максимум 3 активных бафа.</div>
+      </section>
+    </section>
+
+    <footer class="foot">
+      <div>
+        <button id="resetBtn" class="btn danger ghost">Сбросить прогресс</button>
+      </div>
+      <div class="note">Демо-прототип: 3 барабана, 6 символов, 5 спинов на раунд, долг растёт каждый раунд.</div>
+    </footer>
+  </main>
+
+  <!-- Telegram Web App bridge (подключение не мешает — работает и для обычного браузера) -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <script src="game.js"></script>
+</body>
+</html>
